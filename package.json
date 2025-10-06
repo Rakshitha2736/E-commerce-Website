@@ -1,0 +1,15 @@
+{
+  "name": "my-app",
+  "version": "1.0.0",
+  "description": "E-commerce application with React frontend and Node.js backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "node build.js",
+    "postinstall": "node build.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

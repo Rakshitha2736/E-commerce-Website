@@ -1,12 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require("path");
 require("dotenv").config();
 
-const authRoutes = require("./routes/authRoutes");
-const itemRoutes = require("./routes/itemRoutes");
-const cartRoutes = require("./routes/cartRoutes");
-const orderRoutes = require("./routes/orderRoutes");
+// Use paths relative to this file's directory
+const authRoutes = require(path.join(__dirname, "routes/authRoutes"));
+const itemRoutes = require(path.join(__dirname, "routes/itemRoutes"));
+const cartRoutes = require(path.join(__dirname, "routes/cartRoutes"));
+const orderRoutes = require(path.join(__dirname, "routes/orderRoutes"));
 
 const app = express();
 

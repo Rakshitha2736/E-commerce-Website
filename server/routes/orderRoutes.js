@@ -3,7 +3,7 @@ const router = express.Router();
 const Order = require('../models/Order');
 
 // Create an order (expected body: { userKey, items: [{itemId,name,image,cost,quantity}], total })
-router.post('/api/orders', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { userKey, items, total } = req.body;
     if (!userKey || !items || !Array.isArray(items) || items.length === 0) {
@@ -20,7 +20,7 @@ router.post('/api/orders', async (req, res) => {
 });
 
 // Get orders by userKey
-router.get('/api/orders/:userKey', async (req, res) => {
+router.get('/:userKey', async (req, res) => {
   try {
     const { userKey } = req.params;
     const orders = await Order.find({ userKey }).sort({ createdAt: -1 });
