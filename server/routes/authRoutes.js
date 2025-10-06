@@ -35,22 +35,20 @@ router.post("/signup", async (req, res) => {
 
 // ================== LOGIN ==================
 router.post("/login", async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, password } = req.body;
 
-  const identifier = username || email;
-
-  if (!identifier || !password) {
+  if (!username || !password) {
     console.log("❌ Login failed: Missing fields");
-    return res.status(400).json({ message: "Username/Email and Password required" });
+    return res.status(400).json({ message: "Username and Password required" });
   }
 
   try {
-    // find by username OR email
-    const user = await User.findOne({ $or: [{ username: identifier }, { email: identifier }] });
+    // Find user by name (username)
+    const user = await User.findOne({ name: username });
     console.log("🔍 User found in DB:", user);
 
     if (!user) {
-      console.log("❌ Login failed: User not found:", identifier);
+      console.log("❌ Login failed: User not found:", username);
       return res.status(400).json({ message: "User not found" });
     }
 
@@ -69,16 +67,15 @@ router.post("/login", async (req, res) => {
     }
 
     if (!passwordMatches) {
-      console.log("❌ Login failed: Invalid password for:", identifier);
+      console.log("❌ Login failed: Invalid password for:", username);
       return res.status(400).json({ message: "Invalid password" });
     }
 
-    console.log("✅ Login successful for:", identifier);
+    console.log("✅ Login successful for:", username);
     return res.json({
       message: "Login successful",
       user: {
         name: user.name,
-        username: user.username,
         email: user.email,
         phone: user.phone
       }
